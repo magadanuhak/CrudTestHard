@@ -1,0 +1,72 @@
+body{
+    background: #f9f9f9;
+
+}
+.header, .footer{
+    margin-bottom: 15px;
+}
+.content{
+    background:white;
+    border-radius: 5px;
+    padding:0;
+    -webkit-box-shadow: 6px 5px 13px 9px rgba(0,0,0,0.14);
+    -moz-box-shadow: 6px 5px 13px 9px rgba(0,0,0,0.14);
+    box-shadow: 6px 5px 13px 9px rgba(0,0,0,0.14);
+}
+.page-title{
+    background: cornflowerblue;
+    font-size: 24px;
+    color:white;
+    margin : 0;
+    margin-bottom: 12px;
+    padding:6px 12px;
+
+
+
+}
+.product-title{
+    -webkit-border-bottom-right-radius: 30px;
+    -moz-border-radius-bottomright: 30px;
+    border-bottom-right-radius: 30px;
+}
+.products-list{
+    display: grid;
+    grid-template-columns: 20rem 20rem 20rem;
+    grid-gap: 5px;
+}
+.card{
+    margin: 10px;
+}
+.price{
+    background: crimson;
+    display: inline;
+    color:white;
+    border: solid 1px black;
+    padding: 3px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-bottom-right-radius: 5px;
+}
+.add-to-cart{
+    position:absolute;
+    right: 0;
+    top: 0;
+}
+.auth-form{
+    max-width: 350px;
+    min-width:250px;
+    width: 100%;
+    padding:25px;
+    margin:20px auto;
+    /*border:solid 1px;*/
+    /*border-radius: 3px;*/
+
+
+}
+.auth-form input{
+    padding: 6px;
+    font-size:19px;
+}
+.btn{
+    margin:3px;
+}
