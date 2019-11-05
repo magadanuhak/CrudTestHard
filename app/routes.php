@@ -48,6 +48,10 @@ $router->mount('/users', function() use ($router) {
         $this->handleRequest("User", "edit",  $id);
     });
 
+    $router->post('/add/', function (){
+        $this->handleRequest("User", "addUser");
+    });
+
     $router->post('/edit/(\d+)', function($id){
         $this->handleRequest("User", "update" );
     });
@@ -77,6 +81,7 @@ $router->get('/auth/logout', function (){
 $router->get('/products', function (){
     $this->handleRequest("Products", "index");
 });
+
 
 $router->set404(function () {
     header('HTTP/1.1 301 Moved Permanently');

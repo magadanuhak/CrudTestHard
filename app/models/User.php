@@ -27,6 +27,27 @@ class User extends Model
     public function getAllGroups(){
         return $this->db->select("SELECT * FROM user_groups");
     }
+    public function addUser($data){
+        $peopleId = $this->db->insert("
+        INSERT INTO
+            people
+        SET 
+            name = '{$data['name']}',
+            surname = '{$data['surname']}',
+            email = '{$data['email']}',
+            birdthday ='{$data['birdthday']}',
+            identification_number = '{$data['identification_number']}'
+            ");
+        return $this->db->insert("
+        INSERT INTO
+            users
+        SET
+            login = {$data['login']},
+            status = 'N',
+            activated = 'N' 
+        ");
+
+    }
     public function getUser($id)
     {
         $user = $this->db->selectOne("
@@ -39,6 +60,7 @@ class User extends Model
             users.author_id,
             people.name,
             people.surname,
+            people.email,
             people.identification_number
         FROM
             users 
@@ -290,7 +312,7 @@ class User extends Model
            UPDATE
                 users
             SET
-                password = MD5('{ $password }'),
+                password = '{$password}',
                 status = 'Y'
             WHERE 
                 MD5(login) like '{$hash}' 

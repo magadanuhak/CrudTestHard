@@ -4,6 +4,8 @@ namespace site\app\controllers;
 
 use site\app\core\View;
 use site\app\models\User;
+use site\app\Utils;
+use Valitron\Validator;
 
 class UserController
 {
@@ -27,8 +29,19 @@ class UserController
         ];
         View::render('user/edit', $data);
     }
-
-    public function actionUdate(){
+    public function actionAdd($data){
+        View::render('user/add', ['user_groups' => User::getInstance()->getAllGroups() ]);
+    }
+    public function addUser(){
+        $validator = $this->validate($_POST);
+        if(empty($validator)) {
+            User::getInstance()->addUser($_POST);
+        } else{
+            View::render('user/add', ['user_groups' => User::getInstance()->getAllGroups()]);
+            Utils::showValidationErrors($validator);
+        }
+    }
+    public function userUpdate($id){
 
     }
 
@@ -41,5 +54,27 @@ class UserController
         }
     }
 
+    public function validate($data, $required = [], $equals = []){
+        $v = new Validator($data);
+        $v->rules([
+            'email' => [
+                ['email']
+            ],
+            'lengthMin' =>[
+                'email' => 4,
+                'username' => 4,
+                'name'  => 3
+            ],
+            'lengthMax' =>[
+                'email' => 200,
+                'username' => 100,
+                'name'  => 200,
+            ],
+            'required' => $required,
+            'equals' => [$equals],
+        ]);
+        $v->validate();
+        return $v->errors();
+    }
 
 }

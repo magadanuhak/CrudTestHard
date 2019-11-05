@@ -2,64 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa26d692-80e3-4ca0-abe6-6a9007ae4bbb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/crud.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Utils.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/controllers/AuthController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/controllers/CartController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/controllers/MainController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/controllers/ProductsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/controllers/UserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/APP.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/DB.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/View.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/layouts/default.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/models/Cart.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/models/Model.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/models/Product.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/models/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/routes.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/services/Mail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/auth/finish_registration.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/auth/login.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/auth/login_error.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/auth/register.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/auth/register_error.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/auth/register_success.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/cart/add_error.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/cart/add_success.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/cart/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/cart/remove_success.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/errors/404.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/main/contact.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/main/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/products/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/user/activation_error.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/user/edit.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/user/list.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/user/password.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/mysql/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/nginx/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/nginx/default.conf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/php/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker/php/custom.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/default.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/contents.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/test.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/user/add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Utils.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Utils.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/user/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/user/edit.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -118,13 +69,14 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/views/auth" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/views/user" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="B:\crud\app\views\user" />
       <recent name="B:\crud\app\views\auth" />
       <recent name="B:\crud\docker\mysql" />
     </key>
@@ -167,7 +119,7 @@
       <workItem from="1572589880530" duration="16899000" />
       <workItem from="1572848330938" duration="26311000" />
       <workItem from="1572934228488" duration="3583000" />
-      <workItem from="1572944772110" duration="13836000" />
+      <workItem from="1572944772110" duration="17023000" />
     </task>
     <servers />
   </component>

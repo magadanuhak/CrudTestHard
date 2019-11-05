@@ -4,6 +4,7 @@ namespace site\app\controllers;
 use site\app\core\User;
 use site\app\core\View;
 use site\app\services\Mail;
+use site\app\Utils;
 use Valitron\Validator;
 
 class AuthController
@@ -31,32 +32,21 @@ class AuthController
 
         if(empty($validator)){
             if(\site\app\models\User::getInstance()->register($_POST['username'], $_POST['email'], $_POST['name'], $_POST['password'])) {
-                $this->sendActivationMail($_POST['email'], md5($_POST['login']));
+                $this->sendActivationMail($_POST['email'], md5($_POST['username']));
                 return View::render('auth/register_success', $_POST);
             } else{
                 return View::render('auth/register_error');
             }
         } else{
-            foreach ($validator as $key => $errors){
-                    ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?
-                        foreach ($errors as $error){
-                            echo  $error;
-                        }
-                        ?>
-                    </div>
-                    <?
-
-            }
-            return View::render('auth/register');
+            View::render('auth/register');
+            Utils::showValidationErrors($validator);
         }
 
     }
 
     public function actionFinish($hash){
         $status = \site\app\models\User::getInstance()->isActivated($hash);
-        if($status['activate'] == 'N' && $status['status'] == 'N'){
+        if($status['activated'] == 'N' && $status['status'] == 'N'){
             if(empty($_POST['password']) && empty($_POST['password_confirmation'])) {
                 View::render('user/password');
             } else {
@@ -69,8 +59,8 @@ class AuthController
                 }
             }
         }
-        var_dump($status);
-        if($status['activate'] == 'N' ) {
+
+        if($status['activated'] == 'N' ) {
             \site\app\models\User::getInstance()->activateAccount($hash);
         } else {
             return false;
@@ -91,6 +81,7 @@ class AuthController
        unset($_SESSION['USER']);
        return View::render('main/index');
     }
+
     public function validate($data, $required = [], $equals = []){
         $v = new Validator($data);
         $v->rules([

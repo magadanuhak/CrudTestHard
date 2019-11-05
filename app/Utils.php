@@ -53,5 +53,17 @@ class Utils
                 ';
 
     }
+    public static function showValidationErrors($fields){
+        foreach ($fields as $field => $errors){
+        ?>
+            <div class="alert alert-danger" role="alert">
+        <?   foreach ($errors as $error){
+                echo $error;
+            }
+        ?>
+            </div>
+        <?
+        }
+    }
 
 }

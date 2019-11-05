@@ -1,11 +1,6 @@
 <?php
 namespace site\app\core;
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-use site\app\controllers\UserController;
-
 class User
 {
     private static $instance = null;
