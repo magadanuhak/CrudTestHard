@@ -1,4 +1,4 @@
-<div class="page-title">Edit User</div>
+<div class="page-title">Add User</div>
 <form method="post" class="auth-form">
     <div class="form-group">
         <label for="exampleInputEmail1">Login</label>
@@ -21,13 +21,16 @@
         <input autocomplete="off" name="identification_number" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Identification Number">
     </div>
     <div class="form-group">
+        <label for="exampleInputEmail1">Birdthday</label>
+        <input autocomplete="off" name="birdthday" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Birdthday">
+    </div>
+    <div class="form-group">
         <label for="userGroup">User Group</label>
         <select name="group_id"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             <?
                 foreach ($data['user_groups'] as $group){
                  ?>
-                    <option value="<?=$group['id']?>" <?=($group['id'] == $data['user']['group_id'] ) ? 'selected' : '' ?>><?=$group['name']?></option>
-
+                    <option value="<?=$group['id']?>"><?=$group['name']?></option>
                 <?
                 }
             ?>

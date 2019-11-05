@@ -30,7 +30,11 @@ class UserController
         View::render('user/edit', $data);
     }
     public function actionAdd($data){
-        View::render('user/add', ['user_groups' => User::getInstance()->getAllGroups() ]);
+        if(isset($_POST['login'])) {
+            $this->addUser();
+        } else{
+            View::render('user/add', ['user_groups' => User::getInstance()->getAllGroups()]);
+        }
     }
     public function addUser(){
         $validator = $this->validate($_POST);
@@ -62,13 +66,23 @@ class UserController
             ],
             'lengthMin' =>[
                 'email' => 4,
-                'username' => 4,
-                'name'  => 3
+                'login' => 4,
+                'surname' => 3,
+                'name'  => 3,
+                'identification_number' => 5
             ],
             'lengthMax' =>[
                 'email' => 200,
-                'username' => 100,
+                'login' => 100,
                 'name'  => 200,
+                'surname' => 200,
+                'identification_number' => 13
+            ],
+            'integer' => [
+                ['identification_number', true]
+            ],
+            'date' => [
+                ['birthday']
             ],
             'required' => $required,
             'equals' => [$equals],
