@@ -14,7 +14,8 @@
         "bramus/router": "~1.4",
         "vlucas/phpdotenv": "^3.6",
         "phpmailer/phpmailer": "~6.1",
-        "vlucas/valitron": "^1.4"
+        "vlucas/valitron": "^1.4",
+        "maximebf/debugbar": "^1.15"
     },
     "autoload": {
         "psr-4": {

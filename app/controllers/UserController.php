@@ -12,23 +12,30 @@ class UserController
     public function actionIndex(){
         $page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 
-        $paginator = "";
-//             $paginator = Utils::makePaginator('users', 'id', 10, $page);
         $data = [
-            "paginator" => "" . $paginator,
             "users" => User::getInstance()->getList(10, $page)
         ];
         View::render('user/list', $data);
+        $current = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
+        echo \site\app\Utils::makePaginator('users', 'id', 10, $current, " WHERE deleted = 'N' ");
 
     }
 
-    public function actionEdit($data){
-        $data = [
-            'user' => User::getInstance()->getUser($data),
-            'user_groups' => User::getInstance()->getAllGroups()
-        ];
-        View::render('user/edit', $data);
+    public function actionEdit($id){
+        if(isset($_POST['login'])){
+            if($this->validate($_POST, ['login', 'email', 'name']) && User::getInstance()->userExist($_POST['login'])){
+                User::getInstance()->update($id, $_POST);
+                View::render('user/success_updated');
+            }
+        } else {
+            $data = [
+                'user' => User::getInstance()->getUser($id),
+                'user_groups' => User::getInstance()->getAllGroups()
+            ];
+            View::render('user/edit', $data);
+        }
     }
+
     public function actionAdd($data){
         if(isset($_POST['login'])) {
             $this->addUser();
@@ -37,16 +44,17 @@ class UserController
         }
     }
     public function addUser(){
-        $validator = $this->validate($_POST);
-        if(empty($validator)) {
-            User::getInstance()->addUser($_POST);
+        $validator = $this->validate($_POST, ['login', 'email']);
+        $userExist = User::getInstance()->userExist($_POST['login']);
+        if(empty($validator) && !$userExist) {
+            if(User::getInstance()->addUser($_POST)){
+                View::render('user/success_added');
+            }
         } else{
             View::render('user/add', ['user_groups' => User::getInstance()->getAllGroups()]);
+            echo ($userExist) ? 'Login exist please select other' : '';
             Utils::showValidationErrors($validator);
         }
-    }
-    public function userUpdate($id){
-
     }
 
     public function actionDelete($data){
@@ -54,8 +62,8 @@ class UserController
         if(\site\app\core\User::getInstance()->getSession('group_id') > $user->getUser($data)['group_id']) {
             $user->delete($data);
             var_dump($data['id']);
-            header('Location: /users');
         }
+        header('Location: /users');
     }
 
     public function validate($data, $required = [], $equals = []){
@@ -85,7 +93,7 @@ class UserController
                 ['birthday']
             ],
             'required' => $required,
-            'equals' => [$equals],
+            'equals' => [$equals]
         ]);
         $v->validate();
         return $v->errors();

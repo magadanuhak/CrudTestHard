@@ -14,7 +14,7 @@
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Email</label>
-        <input name="login" type="text" class="form-control" autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <input name="email" type="text" class="form-control" autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Identification Number</label>

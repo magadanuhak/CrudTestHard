@@ -48,9 +48,10 @@ class User
         return false;
     }
     public function isAdmin(){
-        if($this->getSession('group_name') == 'admin'){
+        if($this->getSession('group_name') == 'admin' || $this->getSession('group_name') =='system'){
             return true;
         }
+        return false;
     }
     public function logout(){
         $_SESSION['USER']['authorised']  = false;

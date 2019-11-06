@@ -2,7 +2,9 @@
 
 namespace site\app\core;
 
+use DebugBar\StandardDebugBar;
 use Dotenv\Dotenv;
+
 
 class APP
 {
@@ -32,7 +34,6 @@ class APP
 
     public function run () {
         Dotenv::create('../')->load();
-
         require_once '../app/routes.php';
     }
 }

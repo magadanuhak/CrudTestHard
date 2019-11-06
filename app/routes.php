@@ -30,19 +30,26 @@ $router->get('/cart/add/(\d+)', function ($id){
 $router->get('/cart/remove/(\d+)', function ($id){
     $this->handleRequest("Cart", "remove", $id);
 });
+$router->get('/users', function (){
+    $this->handleRequest("User", "index");
+});
+$router->before('GET|POST', '/user.*', function() {
+    if(!User::getInstance()->isAdmin()){
+        \site\app\core\View::render('errors/403');
+        die();
 
-$router->mount('/users', function() use ($router) {
+    }
+});
 
-    $router->before('OPTIONS', '/.*', function() {
+$router->mount('/user', function() use ($router) {
+    $router->before('GET|POST', '/.*', function() {
         if(!User::getInstance()->isAdmin()){
-            header('HTTP/1.0 401 Unauthorized');
-            echo "Access Not Allowed";
-            exit;
+            \site\app\core\View::render('errors/403');
+            die();
+
         }
     });
-    $router->get('/', function (){
-            $this->handleRequest("User", "index");
-    });
+
 
     $router->get('/edit/(\d+)', function ($id){
         $this->handleRequest("User", "edit",  $id);

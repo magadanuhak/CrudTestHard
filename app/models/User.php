@@ -28,6 +28,7 @@ class User extends Model
         return $this->db->select("SELECT * FROM user_groups");
     }
     public function addUser($data){
+        $birdthday =  date('Y-m-d', strtotime($data['birdthday']));
         $peopleId = $this->db->insert("
         INSERT INTO
             people
@@ -35,16 +36,17 @@ class User extends Model
             name = '{$data['name']}',
             surname = '{$data['surname']}',
             email = '{$data['email']}',
-            birdthday ='{$data['birdthday']}',
+            birthday ='{$birdthday}',
             identification_number = '{$data['identification_number']}'
             ");
         return $this->db->insert("
         INSERT INTO
             users
         SET
-            login = {$data['login']},
+            login = '{$data['login']}',
             status = 'N',
-            activated = 'N' 
+            activated = 'N',
+            people_id = {$peopleId} 
         ");
 
     }
@@ -61,6 +63,7 @@ class User extends Model
             people.name,
             people.surname,
             people.email,
+            people.birthday,
             people.identification_number
         FROM
             users 
@@ -214,7 +217,8 @@ class User extends Model
 
     public function login($username, $password)
     {
-        return $this->db->selectOne("SELECT
+        return $this->db->selectOne("
+        SELECT
             users.id,
             users.login,
             users.group_id,
@@ -243,6 +247,7 @@ class User extends Model
             people.name,
             people.surname,
             people.identification_number,
+            people.birthday,
             user_groups.name as group_name,
             users.login  as author_name
         FROM users A 
@@ -267,14 +272,14 @@ class User extends Model
            
         ");
         return (bool)$this->db->insert("
-            INSERT INTO 
-                users
-            SET
-                people_id = $peopleID,
-                login = '{$login}',
-                password = MD5('{$password}'),
-                status = 'Y',
-                activated = 'N'"
+        INSERT INTO 
+            users
+        SET
+            people_id = $peopleID,
+            login = '{$login}',
+            password = MD5('{$password}'),
+            status = 'Y',
+            activated = 'N'"
         );
     }
 
@@ -287,24 +292,59 @@ class User extends Model
     public function userExist($login): bool
     {
         return (bool) !empty($this->db->selectOne("
-            SELECT
-                login
-            FROM
-                users
-            WHERE
-                users.login LIKE '{$login}' "
+        SELECT
+            login
+        FROM
+            users
+        WHERE
+            users.login LIKE '{$login}' "
         ));
     }
 
     public function delete($id):bool
     {
         return (bool)  $this->db->update("
-            UPDATE 
-                users 
-            SET 
-                deleted = 'Y' 
-            WHERE 
-                id = {$id} 
+        UPDATE 
+            users 
+        SET 
+            deleted = 'Y' 
+        WHERE 
+            id = {$id} 
+        ");
+    }
+    public function getPeopleId($id){
+        return $this->db->selectOne("
+        SELECT 
+            people_id
+        FROM 
+            users
+        WHERE
+            users.id = {$id} 
+        ");
+    }
+    public function update($id, $data){
+        $this->db->update("
+        UPDATE 
+            users
+        SET 
+            login = '{$data['login']}',
+            updated_at = NOW()
+        WHERE 
+            users.id = {$id}
+        ");
+        $peopleid = $this->getPeopleId($id);
+        $birthday =  date('Y-m-d', strtotime($data['birdthday']));
+        $this->db->update("
+        UPDATE
+            people
+        SET 
+            name = '{$data['name']}',
+            surname = '{$data['surname']}',
+            email = '{$data['email']}',
+            identification_number = '{$data['identification_number']}',
+            birthday = '{$birthday}'
+        WHERE people.id = {$peopleid} 
+            
         ");
     }
     public function finishRegistration($password, $hash){
