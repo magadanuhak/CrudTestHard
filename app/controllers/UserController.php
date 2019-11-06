@@ -6,6 +6,7 @@ use site\app\core\View;
 use site\app\models\User;
 use site\app\Utils;
 use Valitron\Validator;
+use site\app\services\Mail;
 
 class UserController
 {
@@ -23,8 +24,8 @@ class UserController
 
     public function actionEdit($id){
         if(isset($_POST['login'])){
-            if($this->validate($_POST, ['login', 'email', 'name']) && User::getInstance()->userExist($_POST['login'])){
-                User::getInstance()->update($id, $_POST);
+            if($this->validate($_POST, [], ['login', 'email', 'name']) && User::getInstance()->userExist($_POST['login'])){
+                var_dump(User::getInstance()->update($id, $_POST));
                 View::render('user/success_updated');
             }
         } else {
@@ -44,10 +45,20 @@ class UserController
         }
     }
     public function addUser(){
-        $validator = $this->validate($_POST, ['login', 'email']);
+        $validator = $this->validate($_POST, [], ['login', 'email']);
         $userExist = User::getInstance()->userExist($_POST['login']);
+        var_dump(md5($_POST['login']));
         if(empty($validator) && !$userExist) {
-            if(User::getInstance()->addUser($_POST)){
+            if(User::getInstance()->addUser($_POST, \site\app\core\User::getInstance()->getSession('id'))){
+                $mail = new Mail();
+
+                $message = '
+                    <h1>
+                        Your acount was been created please set a password follow this link 
+                        <a href="http://my.md/auth/finish/'.md5($_POST['login']).'">Set a password</a>
+                    </h1>
+                ';
+                $mail->send('Chose a password for yout account', $message, $_POST['email']);
                 View::render('user/success_added');
             }
         } else{
@@ -61,13 +72,13 @@ class UserController
         $user = User::getInstance();
         if(\site\app\core\User::getInstance()->getSession('group_id') > $user->getUser($data)['group_id']) {
             $user->delete($data);
-            var_dump($data['id']);
         }
         header('Location: /users');
     }
 
-    public function validate($data, $required = [], $equals = []){
+    public function validate($data, $equals = '', $required = []){
         $v = new Validator($data);
+//        $equals  = (!empty($equals)) ? $equals : '' ;
         $v->rules([
             'email' => [
                 ['email']
@@ -93,7 +104,7 @@ class UserController
                 ['birthday']
             ],
             'required' => $required,
-            'equals' => [$equals]
+            $equals
         ]);
         $v->validate();
         return $v->errors();

@@ -60,7 +60,7 @@ class AuthController
             }
         }
 
-        if($status['activated'] == 'N' ) {
+        if($status['activated'] == 'N' && $status['status'] == 'Y') {
             \site\app\models\User::getInstance()->activateAccount($hash);
         } else {
             return false;

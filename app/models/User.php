@@ -27,7 +27,7 @@ class User extends Model
     public function getAllGroups(){
         return $this->db->select("SELECT * FROM user_groups");
     }
-    public function addUser($data){
+    public function addUser($data,$currentUserId){
         $birdthday =  date('Y-m-d', strtotime($data['birdthday']));
         $peopleId = $this->db->insert("
         INSERT INTO
@@ -46,7 +46,8 @@ class User extends Model
             login = '{$data['login']}',
             status = 'N',
             activated = 'N',
-            people_id = {$peopleId} 
+            people_id = {$peopleId},
+            author_id = {$currentUserId} 
         ");
 
     }
@@ -239,7 +240,7 @@ class User extends Model
 
     public function getList($perPage = 10, $page = 1)
     {
-        $start = ($page - 1) * $perPage;
+        $start = ($page -1) * $perPage;
         return $this->db->select("
         SELECT
             A.id,
@@ -334,7 +335,7 @@ class User extends Model
         ");
         $peopleid = $this->getPeopleId($id);
         $birthday =  date('Y-m-d', strtotime($data['birdthday']));
-        $this->db->update("
+        $res = $this->db->update("
         UPDATE
             people
         SET 
@@ -346,6 +347,7 @@ class User extends Model
         WHERE people.id = {$peopleid} 
             
         ");
+        var_dump($res);
     }
     public function finishRegistration($password, $hash){
         return (bool) ( $this->db->update("
@@ -353,7 +355,8 @@ class User extends Model
                 users
             SET
                 password = '{$password}',
-                status = 'Y'
+                status = 'Y',
+                activated = 'Y'
             WHERE 
                 MD5(login) like '{$hash}' 
             LIMIT 1

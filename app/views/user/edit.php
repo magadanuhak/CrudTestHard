@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="form-group">
                     <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                        <input type="text" value="<?=$data['user']['birthday']?>" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
+                        <input type="text" name="birthday" value="<?=$data['user']['birthday']?>" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
                         <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
