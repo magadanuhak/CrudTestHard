@@ -2,11 +2,11 @@
 <form method="post" class="auth-form">
     <div class="form-group">
         <label for="exampleInputEmail1">Login</label>
-        <input name="login" type="text" class="form-control" value="<?=$data['user']['login']?>" autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter login">
+        <input name="login" type="text" class="form-control" value="<?=$data['user']['login']?>" autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter login" required>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Name</label>
-        <input value="<?=$data['user']['name']?>" name="name" autocomplete="off" type="text" class="form-control" id="exampleInputPassword1" placeholder="Name">
+        <input value="<?=$data['user']['name']?>" name="name" autocomplete="off" type="text" class="form-control" id="exampleInputPassword1" placeholder="Name" required>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Surname</label>
@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Email</label>
-        <input name="email" type="text" class="form-control" value="<?=$data['user']['email']?>" autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <input name="email" type="email" class="form-control" value="<?=$data['user']['email']?>" autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Identification Number</label>

@@ -16,7 +16,12 @@ $router->post('/{controller}/{action}/', function($controller, $actionString){
 });
 
 $router->get('/', function (){
-    $this->handleRequest("Main", "index");
+    if(User::getInstance()->isAuthorised()){
+        $this->handleRequest("User", "profile");
+    } else {
+        $this->handleRequest("Main", "index");
+    }
+
 });
 $router->get('/contact', function (){
     $this->handleRequest("Main", "contact");

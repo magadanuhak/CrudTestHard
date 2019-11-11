@@ -2,16 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa26d692-80e3-4ca0-abe6-6a9007ae4bbb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/views/user/user_profile.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Utils.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Utils.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/auth/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/auth/login.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/auth/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/auth/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/main/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/main/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/user/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/user/add.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/user/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/user/edit.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/user/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/user/list.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/utils/paginator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/utils/paginator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/user/password.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/user/password.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/default.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/default.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -126,7 +128,7 @@
       <workItem from="1572934228488" duration="3583000" />
       <workItem from="1572944772110" duration="18004000" />
       <workItem from="1573020336963" duration="21563000" />
-      <workItem from="1573452746302" duration="14637000" />
+      <workItem from="1573452746302" duration="19850000" />
     </task>
     <servers />
   </component>

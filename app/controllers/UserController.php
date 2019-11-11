@@ -32,6 +32,11 @@ class UserController
         echo \site\app\Utils::makePaginator('users', 'id', 10, $current, " WHERE deleted = 'N' ");
 
     }
+    public function actionProfile(){
+        $user = User::getInstance()->getUser(\site\app\core\User::getInstance()->getSession('id'));
+        View::render('user/user_profile', $user);
+
+    }
 
     public function actionEdit($id){
         if(isset($_POST['login'])){
