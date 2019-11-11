@@ -94,7 +94,6 @@ $router->get('/products', function (){
     $this->handleRequest("Products", "index");
 });
 
-
 $router->set404(function () {
     header('HTTP/1.1 301 Moved Permanently');
     header('Location: /');

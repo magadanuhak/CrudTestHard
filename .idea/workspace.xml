@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa26d692-80e3-4ca0-abe6-6a9007ae4bbb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,20 +66,21 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/views/user" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="B:\crud\app\views\user" />
-      <recent name="B:\crud\app\views\auth" />
-      <recent name="B:\crud\docker\mysql" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="B:\crud\app\templates\mail" />
       <recent name="B:\crud" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="B:\crud" />
+      <recent name="B:\crud\app\views\user" />
+      <recent name="B:\crud\app\views\auth" />
+      <recent name="B:\crud\docker\mysql" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -117,7 +119,8 @@
       <workItem from="1572934228488" duration="3583000" />
       <workItem from="1572944772110" duration="18004000" />
       <workItem from="1573020336963" duration="21563000" />
-      <workItem from="1573452746302" duration="20761000" />
+      <workItem from="1573452746302" duration="22305000" />
+      <workItem from="1573485367047" duration="76000" />
     </task>
     <servers />
   </component>
