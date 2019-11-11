@@ -2,27 +2,27 @@
 <form method="post" class="auth-form">
     <div class="form-group">
         <label for="exampleInputEmail1">Login</label>
-        <input name="login" type="text" class="form-control"  autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter login">
+        <input name="login" type="text" class="form-control" value="<?=(isset($data['inputs']['login']))? $data['inputs']['login'] : ""?>"  autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter login">
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Name</label>
-        <input  name="name" autocomplete="off" type="text" class="form-control" id="exampleInputPassword1" placeholder="Name">
+        <label>Name</label>
+        <input  name="name" autocomplete="off" type="text"value="<?=(isset($data['inputs']['name']))? $data['inputs']['name'] : ""?>"  class="form-control"  placeholder="Name">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Surname</label>
-        <input autocomplete="off" name="surname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Surname">
+        <input autocomplete="off" value="<?=(isset($data['inputs']['surname']))? $data['inputs']['surname'] : ""?>"  name="surname" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Surname">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Email</label>
-        <input name="email" type="text" class="form-control" autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <input name="email" type="text" value="<?=(isset($data['inputs']['email']))? $data['inputs']['email'] : ""?>"  class="form-control" autocomplete="off" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Identification Number</label>
-        <input autocomplete="off" name="identification_number" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Identification Number">
+        <input autocomplete="off" name="identification_number" value="<?=(isset($data['inputs']['identification_number']))? $data['inputs']['identification_number'] : ""?>"  type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Identification Number">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Birdthday</label>
-        <input autocomplete="off" name="birdthday" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Birdthday">
+        <input autocomplete="off" name="birdthday" value="<?=(isset($data['inputs']['birthday']))? $data['inputs']['birthday'] : ""?>"  type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Birdthday">
     </div>
     <div class="form-group">
         <label for="userGroup">User Group</label>
@@ -30,7 +30,7 @@
             <?
                 foreach ($data['user_groups'] as $group){
                  ?>
-                    <option value="<?=$group['id']?>"><?=$group['name']?></option>
+                    <option value="<?=$group['id']?>" <?=(isset($data['inputs']['group_id']))?($group['id'] == $data['inputs']['group_id'])?"Selected" :"" : "" ?>><?=$group['name']?></option>
                 <?
                 }
             ?>

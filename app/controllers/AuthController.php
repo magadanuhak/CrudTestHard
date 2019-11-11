@@ -26,10 +26,9 @@ class AuthController
     public function actionRegister(){
 
         if((!isset($_POST['username']) || !isset($_POST['email']))){
-            return View::render('auth/register');
+            return View::render('auth/register', $_POST);
         }
         $validator = $this->validate($_POST, ['username', 'email', 'password'], ['password', 'password_confirmation']);
-
         if(empty($validator)){
             if(\site\app\models\User::getInstance()->register($_POST['username'], $_POST['email'], $_POST['name'], $_POST['password'])) {
                 $this->sendActivationMail($_POST['email'], md5($_POST['username']));
@@ -38,8 +37,9 @@ class AuthController
                 return View::render('auth/register_error');
             }
         } else{
-            View::render('auth/register');
             Utils::showValidationErrors($validator);
+            View::render('auth/register', $_POST);
+
         }
 
     }

@@ -35,7 +35,6 @@ class User extends Model
         SET 
             name = '{$data['name']}',
             surname = '{$data['surname']}',
-            email = '{$data['email']}',
             birthday ='{$birdthday}',
             identification_number = '{$data['identification_number']}'
             ");
@@ -44,6 +43,7 @@ class User extends Model
             users
         SET
             login = '{$data['login']}',
+            email = '{$data['email']}',
             status = 'N',
             activated = 'N',
             people_id = {$peopleId},
@@ -63,7 +63,7 @@ class User extends Model
             users.author_id,
             people.name,
             people.surname,
-            people.email,
+            users.email,
             people.birthday,
             people.identification_number
         FROM
@@ -238,15 +238,15 @@ class User extends Model
         ");
     }
 
-    public function getList($perPage = 10, $page = 1)
+    public function getList($query ="",$perPage = 10, $page = 1)
     {
         $start = ($page -1) * $perPage;
-        return $this->db->select("
-        SELECT
-            A.id,
+        $q="SELECT
+            A.id ,
             A.login,
-            people.name,
-            people.surname,
+            A.email,
+            people.name ,
+            people.surname ,
             people.identification_number,
             people.birthday,
             user_groups.name as group_name,
@@ -255,8 +255,13 @@ class User extends Model
             JOIN people on A.people_id = people.id
             JOIN user_groups ON A.group_id = user_groups.id
             JOIN users ON users.id = A.author_id
-        WHERE A.deleted = 'N'
-        LIMIT {$start}, {$perPage} ");
+        WHERE
+            A.deleted = 'N'
+            {$query}  
+        LIMIT {$start}, {$perPage} ";
+        echo $q;
+        return $this->db->select($q
+        );
     }
 
     public function register($login, $email,  $name, $password): bool
@@ -268,8 +273,7 @@ class User extends Model
         INSERT INTO 
             people 
         SET 
-            name = '{$name}',
-            email = '{$email}'
+            name = '{$name}'
            
         ");
         return (bool)$this->db->insert("
@@ -280,7 +284,9 @@ class User extends Model
             login = '{$login}',
             password = MD5('{$password}'),
             status = 'Y',
-            activated = 'N'"
+            activated = 'N',
+            email = '{$email}'
+            "
         );
     }
 
@@ -301,18 +307,26 @@ class User extends Model
             users.login LIKE '{$login}' "
         ));
     }
-
+    /**
+     * Функция удаления существующего пользователя
+     *
+     * @param $id - идентификатор пользователя
+     * @return bool - результат операции
+     */
     public function delete($id):bool
     {
         return (bool)  $this->db->update("
         UPDATE 
             users 
         SET 
-            deleted = 'Y' 
+            deleted = 'Y',
+            status = 'N',
+            activated = 'N' 
         WHERE 
             id = {$id} 
         ");
     }
+
     public function getPeopleId($id){
         return $this->db->selectOne("
         SELECT 
@@ -321,34 +335,36 @@ class User extends Model
             users
         WHERE
             users.id = {$id} 
-        ");
+        ")['people_id'];
     }
+
     public function update($id, $data){
         $this->db->update("
         UPDATE 
             users
         SET 
             login = '{$data['login']}',
+            email = '{$data['email']}',
+            group_id = {$data['group_id']},
             updated_at = NOW()
         WHERE 
             users.id = {$id}
         ");
         $peopleid = $this->getPeopleId($id);
-        $birthday =  date('Y-m-d', strtotime($data['birdthday']));
-        $res = $this->db->update("
+        $birthday =  date('Y-m-d', strtotime($data['birthday']));
+        return $this->db->update("
         UPDATE
             people
         SET 
             name = '{$data['name']}',
             surname = '{$data['surname']}',
-            email = '{$data['email']}',
             identification_number = '{$data['identification_number']}',
             birthday = '{$birthday}'
-        WHERE people.id = {$peopleid} 
-            
+        WHERE people.id = {$peopleid}   
         ");
-        var_dump($res);
+
     }
+
     public function finishRegistration($password, $hash){
         return (bool) ( $this->db->update("
            UPDATE

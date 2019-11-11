@@ -14,25 +14,7 @@
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Birthday</label>
-        <div class="container">
-            <div class="row">
-                <div class="form-group">
-                    <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                        <input type="text" name="birthday" value="<?=$data['user']['birthday']?>" class="form-control datetimepicker-input" data-target="#datetimepicker4"/>
-                        <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    $(function () {
-                        $('#datetimepicker4').datetimepicker({
-                            format: 'L'
-                        });
-                    });
-                </script>
-            </div>
-        </div>
+            <input type="date" name="birthday" value="<?=\site\app\Utils::formatDate($data['user']['birthday'], 'd.m.Y')?>" class="form-control"/>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Email</label>

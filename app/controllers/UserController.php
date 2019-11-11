@@ -12,9 +12,20 @@ class UserController
 {
     public function actionIndex(){
         $page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+        $query = "";
+        if(isset($_GET['filter'])){
+            foreach(array_filter($_GET['filter']) as $field => $value){
+                switch ($field){
+                    default : $query.= " AND {$field} like '{$value}%' ";
+                    break;
+                }
 
+            }
+        }
+//        die(var_dump($query));
         $data = [
-            "users" => User::getInstance()->getList(10, $page)
+            "users" => User::getInstance()->getList($query,10, $page),
+            "user_groups" => User::getInstance()->getAllGroups()
         ];
         View::render('user/list', $data);
         $current = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
@@ -24,8 +35,8 @@ class UserController
 
     public function actionEdit($id){
         if(isset($_POST['login'])){
-            if($this->validate($_POST, [], ['login', 'email', 'name']) && User::getInstance()->userExist($_POST['login'])){
-                var_dump(User::getInstance()->update($id, $_POST));
+            if(empty($this->validate($_POST, [], ['login', 'email', 'name'])) && User::getInstance()->userExist($_POST['login'])){
+                User::getInstance()->update($id, $_POST);
                 View::render('user/success_updated');
             }
         } else {
@@ -38,33 +49,39 @@ class UserController
     }
 
     public function actionAdd($data){
-        if(isset($_POST['login'])) {
+        $validator = $this->validate($_POST, [], ['login', 'email', 'name']);
+        if(empty($validator)) {
             $this->addUser();
         } else{
-            View::render('user/add', ['user_groups' => User::getInstance()->getAllGroups()]);
+            $data = [
+                'user_groups' => User::getInstance()->getAllGroups(),
+                'inputs' => $_POST
+            ];
+            Utils::showValidationErrors($validator);
+            View::render('user/add', $data );
         }
     }
-    public function addUser(){
-        $validator = $this->validate($_POST, [], ['login', 'email']);
-        $userExist = User::getInstance()->userExist($_POST['login']);
-        var_dump(md5($_POST['login']));
-        if(empty($validator) && !$userExist) {
-            if(User::getInstance()->addUser($_POST, \site\app\core\User::getInstance()->getSession('id'))){
-                $mail = new Mail();
 
-                $message = '
-                    <h1>
-                        Your acount was been created please set a password follow this link 
-                        <a href="http://my.md/auth/finish/'.md5($_POST['login']).'">Set a password</a>
-                    </h1>
-                ';
-                $mail->send('Chose a password for yout account', $message, $_POST['email']);
-                View::render('user/success_added');
-            }
+    public function addUser(){
+
+        $userExist = User::getInstance()->userExist($_POST['login']);
+        if(
+            !$userExist &&
+            User::getInstance()->addUser($_POST, \site\app\core\User::getInstance()->getSession('id'))
+        ) {
+            $mail = new Mail();
+            $message = '
+                <h1>
+                    Your acount was been created please set a password follow this link 
+                    <a href="http://my.md/auth/finish/'.md5($_POST['login']).'">Set a password</a>
+                </h1>
+            ';
+            $mail->send('Chose a password for yout account', $message, $_POST['email']);
+            View::render('user/success_added');
         } else{
             View::render('user/add', ['user_groups' => User::getInstance()->getAllGroups()]);
             echo ($userExist) ? 'Login exist please select other' : '';
-            Utils::showValidationErrors($validator);
+
         }
     }
 
@@ -78,7 +95,6 @@ class UserController
 
     public function validate($data, $equals = '', $required = []){
         $v = new Validator($data);
-//        $equals  = (!empty($equals)) ? $equals : '' ;
         $v->rules([
             'email' => [
                 ['email']
@@ -109,5 +125,4 @@ class UserController
         $v->validate();
         return $v->errors();
     }
-
 }
