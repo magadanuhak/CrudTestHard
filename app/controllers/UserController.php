@@ -11,15 +11,25 @@ use site\app\services\Mail;
 class UserController
 {
     public function actionIndex(){
+
+        $dates = @explode( '-', $_GET['filter']['people.birthday']);
         $page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
         $query = "";
         if(isset($_GET['filter'])){
             foreach(array_filter($_GET['filter']) as $field => $value){
                 switch ($field){
+                    case 'people.birthday' :
+                        if(!empty($value)){
+                            $query.=" AND 
+                                {$field} 
+                            BETWEEN 
+                                STR_TO_DATE('{$dates[0]}', '%d.%m.%Y') AND
+                                STR_TO_DATE('{$dates[1]}', '%d.%m.%Y')";
+                        }
+                        break;
                     default : $query.= " AND {$field} like '{$value}%' ";
-                    break;
+                        break;
                 }
-
             }
         }
         $data = [
@@ -28,7 +38,7 @@ class UserController
         ];
         View::render('user/list', $data);
         $current = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
-        echo \site\app\Utils::makePaginator('users', 'id', 10, $current, " WHERE deleted = 'N' ".$query);
+        echo \site\app\Utils::makePaginator('users', 'id', 10, $current, " WHERE deleted = 'N' ");
 
     }
     public function actionProfile(){

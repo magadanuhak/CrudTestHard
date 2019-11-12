@@ -1,28 +1,26 @@
 <?php
 use Bramus\Router\Router;
 use site\app\core\User;
-$user = User::getInstance();
 
+$user = User::getInstance();
 $router = new Router();
 
 $router->get('/{module}/{action}/', function($module, $actionString) {
     $action = explode('/', $actionString);
     $this->handleRequest($module,$action[0], @$action[1]);
 });
-
 $router->post('/{controller}/{action}/', function($controller, $actionString){
     $actionString = explode('/', $actionString);
     $this->handleRequest($controller,$actionString[0], @$actionString[1]);
 });
-
 $router->get('/', function (){
     if(User::getInstance()->isAuthorised()){
         $this->handleRequest("User", "profile");
     } else {
         $this->handleRequest("Main", "index");
     }
-
 });
+
 $router->get('/contact', function (){
     $this->handleRequest("Main", "contact");
 });

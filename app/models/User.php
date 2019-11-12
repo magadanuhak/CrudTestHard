@@ -25,52 +25,57 @@ class User extends Model
         return self::$instance;
     }
     public function getAllGroups(){
-        return $this->db->select("SELECT * FROM user_groups");
+        return $this->db->select("
+            SELECT 
+                * 
+            FROM 
+                user_groups
+        ");
     }
     public function addUser($data,$currentUserId){
         $birdthday =  date('Y-m-d', strtotime($data['birdthday']));
         $peopleId = $this->db->insert("
-        INSERT INTO
-            people
-        SET 
-            name = '{$data['name']}',
-            surname = '{$data['surname']}',
-            birthday ='{$birdthday}',
-            identification_number = '{$data['identification_number']}'
-            ");
-        return $this->db->insert("
-        INSERT INTO
-            users
-        SET
-            login = '{$data['login']}',
-            email = '{$data['email']}',
-            status = 'N',
-            activated = 'N',
-            people_id = {$peopleId},
-            author_id = {$currentUserId} 
+            INSERT INTO
+                people
+            SET 
+                name = '{$data['name']}',
+                surname = '{$data['surname']}',
+                birthday ='{$birdthday}',
+                identification_number = '{$data['identification_number']}'
+                ");
+            return $this->db->insert("
+            INSERT INTO
+                users
+            SET
+                login = '{$data['login']}',
+                email = '{$data['email']}',
+                status = 'N',
+                activated = 'N',
+                people_id = {$peopleId},
+                author_id = {$currentUserId} 
         ");
 
     }
     public function getUser($id)
     {
         $user = $this->db->selectOne("
-        SELECT
-            users.login,
-            users.group_id,
-            users.authorization_date,
-            users.status,
-            users.last_login,
-            users.author_id,
-            people.name,
-            people.surname,
-            users.email,
-            people.birthday,
-            people.identification_number
-        FROM
-            users 
-            JOIN people ON users.people_id = people.id 
-            JOIN user_groups ON users.group_id = user_groups.id 
-        WHERE
+            SELECT
+                users.login,
+                users.group_id,
+                users.authorization_date,
+                users.status,
+                users.last_login,
+                users.author_id,
+                people.name,
+                people.surname,
+                users.email,
+                people.birthday,
+                people.identification_number
+            FROM
+                users 
+                JOIN people ON users.people_id = people.id 
+                JOIN user_groups ON users.group_id = user_groups.id 
+            WHERE
             users.id = {$id} 
         ");
         if($user){
@@ -219,48 +224,47 @@ class User extends Model
     public function login($username, $password)
     {
         return $this->db->selectOne("
-        SELECT
-            users.id,
-            users.login,
-            users.group_id,
-            people.name,
-            people.surname,
-            people.identification_number,
-            user_groups.name as group_name
-        FROM
-            users 
-            JOIN people ON users.people_id = people.id
-            JOIN user_groups ON users.group_id = user_groups.id
-            WHERE 
-                login like '{$username}' AND 
-                password like MD5('$password') AND 
-                activated = 'Y'
+            SELECT
+                users.id,
+                users.login,
+                users.group_id,
+                people.name,
+                people.surname,
+                people.identification_number,
+                user_groups.name as group_name
+            FROM
+                users 
+                JOIN people ON users.people_id = people.id
+                JOIN user_groups ON users.group_id = user_groups.id
+                WHERE 
+                    login like '{$username}' AND 
+                    password like MD5('$password') AND 
+                    activated = 'Y'
         ");
     }
 
     public function getList($query ="",$perPage = 10, $page = 1)
     {
         $start = ($page -1) * $perPage;
-        $q="SELECT
-            A.id ,
-            A.login,
-            A.email,
-            people.name ,
-            people.surname ,
-            people.identification_number,
-            people.birthday,
-            user_groups.name as group_name,
-            users.login  as author_name
-        FROM users A 
-            JOIN people on A.people_id = people.id
-            JOIN user_groups ON A.group_id = user_groups.id
-            JOIN users ON users.id = A.author_id
-        WHERE
-            A.deleted = 'N'
-            {$query}  
-        LIMIT {$start}, {$perPage} ";
-        echo $q;
-        return $this->db->select($q
+        return $this->db->select("
+            SELECT
+                A.id ,
+                A.login,
+                A.email,
+                people.name ,
+                people.surname ,
+                people.identification_number,
+                people.birthday,
+                user_groups.name as group_name,
+                users.login  as author_name
+            FROM users A 
+                JOIN people on A.people_id = people.id
+                JOIN user_groups ON A.group_id = user_groups.id
+                JOIN users ON users.id = A.author_id
+            WHERE
+                A.deleted = 'N'
+                {$query}  
+            LIMIT {$start}, {$perPage} "
         );
     }
 
@@ -270,22 +274,22 @@ class User extends Model
             return false;
         }
         $peopleID = $this->db->insert("
-        INSERT INTO 
-            people 
-        SET 
-            name = '{$name}'
+            INSERT INTO 
+                people 
+            SET 
+                name = '{$name}'
            
         ");
         return (bool)$this->db->insert("
-        INSERT INTO 
-            users
-        SET
-            people_id = $peopleID,
-            login = '{$login}',
-            password = MD5('{$password}'),
-            status = 'Y',
-            activated = 'N',
-            email = '{$email}'
+            INSERT INTO 
+                users
+            SET
+                people_id = $peopleID,
+                login = '{$login}',
+                password = MD5('{$password}'),
+                status = 'Y',
+                activated = 'N',
+                email = '{$email}'
             "
         );
     }
@@ -299,12 +303,12 @@ class User extends Model
     public function userExist($login): bool
     {
         return (bool) !empty($this->db->selectOne("
-        SELECT
-            login
-        FROM
-            users
-        WHERE
-            users.login LIKE '{$login}' "
+            SELECT
+                login
+            FROM
+                users
+            WHERE
+                users.login LIKE '{$login}' "
         ));
     }
     /**

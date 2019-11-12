@@ -1,8 +1,6 @@
 <?php
 
-
 namespace site\app;
-
 
 use site\app\core\DB;
 use site\app\core\View;
@@ -42,11 +40,12 @@ class Utils
         ];
         return View::render('utils/paginator', $paginator);
     }
+
     public static function formatDate($date, $format = "Y-m-d H:i:s"){
         $timestamp = strtotime($date);
         return date($format, $timestamp);
-
     }
+
     public static function showValidationErrors($fields){
         foreach ($fields as $field => $errors){
         ?>

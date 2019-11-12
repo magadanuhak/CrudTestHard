@@ -1,7 +1,4 @@
 <div class="page-title">Users</div>
-<?
-//    var_dump(array_filter($_GET['filter']));
-?>
 <a href="user/add"  class="btn btn-success btn-sm">Add User</a>
 <table class="table table-sm table-dark">
     <thead>
@@ -55,7 +52,8 @@
         <th scope="col">
             <input name="filter[people.birthday]"
                    autocomplete="off"
-                   type="date"
+                   type="text"
+                   class="birthday"
                    class="form-control input-sm"
                    value="<?=(isset($_GET['filter']['people.birthday'])) ? $_GET['filter']['people.birthday']  : "" ?>">
         </th>
@@ -63,7 +61,6 @@
             <select name="filter[A.group_id]" class="form-control input-sm">
                 <option value="">Select</option>
             <?
-
                 foreach ($data['user_groups'] as $group){?>
                     <option value="<?=$group['id']?>"
                             <?=(isset($_GET['filter']['A.group_id']))?($_GET['filter']['A.group_id'] == $group['id']) ? "selected" : "" :"" ?>>
@@ -97,12 +94,28 @@
                     <td><a href="user/delete/<?=$user['id'] ?>" class="btn btn-danger btn-sm delete">Delete</a></td>
                 </tr>
             <?
-
             }
-
         ?>
-
     </tbody>
 </table>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        $('.birthday').daterangepicker({
+            autoUpdateInput: false,
+            locale: {
+                format: 'DD.MM.YYYY',
+                cancelLabel: 'Clear'
+            }
+        });
+        $('.birthday').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('DD.MM.YYYY') + '-' + picker.endDate.format('DD.MM.YYYY'));
+
+        });
+
+        $('.birthday').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+        });
+    });
+</script>
 
 
