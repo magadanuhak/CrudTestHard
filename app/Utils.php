@@ -10,7 +10,6 @@ use site\app\core\View;
 class Utils
 {
 
-
     public static function makePaginator(string $table,string $field = 'id', int $perPage,int $current, $queryCondition = ''){
         $query = "SELECT {$field} FROM {$table}  {$queryCondition}";
         $count = DB::getInstance()->numRows($query);
@@ -42,7 +41,6 @@ class Utils
 
         ];
         return View::render('utils/paginator', $paginator);
-
     }
     public static function formatDate($date, $format = "Y-m-d H:i:s"){
         $timestamp = strtotime($date);

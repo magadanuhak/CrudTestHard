@@ -22,14 +22,13 @@ class UserController
 
             }
         }
-//        die(var_dump($query));
         $data = [
             "users" => User::getInstance()->getList($query,10, $page),
             "user_groups" => User::getInstance()->getAllGroups()
         ];
         View::render('user/list', $data);
         $current = (isset($_GET['page'])) ? $_GET['page'] : 1 ;
-        echo \site\app\Utils::makePaginator('users', 'id', 10, $current, " WHERE deleted = 'N' ");
+        echo \site\app\Utils::makePaginator('users', 'id', 10, $current, " WHERE deleted = 'N' ".$query);
 
     }
     public function actionProfile(){
